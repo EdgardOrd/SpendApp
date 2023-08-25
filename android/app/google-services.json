@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1097420132312",
+    "project_id": "financeapp-270a7",
+    "storage_bucket": "financeapp-270a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097420132312:android:8e24aa6c039951ac73acad",
+        "android_client_info": {
+          "package_name": "com.example.finance_app_testing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097420132312-ji6lags2a9j6sjpiljdfkhtl8g6dsqjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ5va2MV6yv-Yy7Zthg8FgxijC9H8k7cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097420132312-ji6lags2a9j6sjpiljdfkhtl8g6dsqjl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097420132312-ch21qinerfn8gdd91lfgkckvgdqi2l6l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.financeAppTesting.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097420132312:android:fd6518bbc6ed98b073acad",
+        "android_client_info": {
+          "package_name": "com.example.proyecto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097420132312-ji6lags2a9j6sjpiljdfkhtl8g6dsqjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ5va2MV6yv-Yy7Zthg8FgxijC9H8k7cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097420132312-ji6lags2a9j6sjpiljdfkhtl8g6dsqjl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1097420132312-ch21qinerfn8gdd91lfgkckvgdqi2l6l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.financeAppTesting.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
