@@ -3,6 +3,17 @@ import 'package:proyecto/screens/home.dart';
 import 'package:proyecto/screens/statics.dart';
 import 'package:proyecto/screens/add.dart';
 
+void main() {
+  runApp(
+    MaterialApp(
+      routes: {
+        '/': (context) => const Bottom(),
+        '/add': (context) => const Add_Screen(),
+      },
+    ),
+  );
+}
+
 class Bottom extends StatefulWidget {
   const Bottom({Key? key}) : super(key: key);
 
@@ -11,17 +22,18 @@ class Bottom extends StatefulWidget {
 }
 
 class _BottomState extends State<Bottom> {
-  int index_color = 0;
-  List Screen = [Home(), Statistics(), Home(), Statistics()];
+  int indexColor = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Screen[index_color],
+      body: IndexedStack(
+        index: indexColor,
+        children: [Home(), Statistics()],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => Add_Screen()));
-
+          await Navigator.of(context).pushNamed('/add');
           setState(() {});
         },
         child: Icon(Icons.add),
@@ -38,50 +50,25 @@ class _BottomState extends State<Bottom> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 0;
+                    indexColor = 0;
                   });
                 },
                 child: Icon(
                   Icons.home,
                   size: 30,
-                  color: index_color == 0 ? Color(0xff368983) : Colors.grey,
+                  color: indexColor == 0 ? Color(0xff368983) : Colors.grey,
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    index_color = 1;
+                    indexColor = 1;
                   });
                 },
                 child: Icon(
                   Icons.bar_chart_outlined,
                   size: 30,
-                  color: index_color == 1 ? Color(0xff368983) : Colors.grey,
-                ),
-              ),
-              SizedBox(width: 10),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index_color = 2;
-                  });
-                },
-                child: Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 30,
-                  color: index_color == 2 ? Color(0xff368983) : Colors.grey,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    index_color = 3;
-                  });
-                },
-                child: Icon(
-                  Icons.person_outlined,
-                  size: 30,
-                  color: index_color == 3 ? Color(0xff368983) : Colors.grey,
+                  color: indexColor == 1 ? Color(0xff368983) : Colors.grey,
                 ),
               ),
             ],

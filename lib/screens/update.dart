@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/services/firebase_service.dart';
 
-class Add_Screen extends StatefulWidget {
-  const Add_Screen({super.key});
+class Update_Screen extends StatefulWidget {
+  const Update_Screen({super.key});
 
   @override
-  State<Add_Screen> createState() => _Add_ScreenState();
+  State<Update_Screen> createState() => _Update_ScreenState();
 }
 
-class _Add_ScreenState extends State<Add_Screen> {
+class _Update_ScreenState extends State<Update_Screen> {
   DateTime date = new DateTime.now();
   String? selctedItem;
   String? selctedItemi;
@@ -25,8 +25,8 @@ class _Add_ScreenState extends State<Add_Screen> {
     "Ropa"
   ];
   final List<String> _itemei = [
-    'Income',
-    "Expand",
+    'Ingreso',
+    "Gasto",
   ];
   @override
   void initState() {
@@ -40,7 +40,16 @@ class _Add_ScreenState extends State<Add_Screen> {
     });
   }
 
+  late String uid;
+
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    uid = arguments["uid"];
+    expalin_C.text = arguments['descrip'];
+    amount_c.text = arguments['monto'];
+    date = arguments['fecha'];
+    selctedItem = arguments['tipo'];
+    selctedItemi = arguments['nombre'];
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
@@ -89,21 +98,13 @@ class _Add_ScreenState extends State<Add_Screen> {
   GestureDetector save() {
     return GestureDetector(
       onTap: () async {
-        var data = {
-          'itemi': selctedItemi!,
-          'amount': amount_c.text,
-          'date': date.toString(),
-          'explain': expalin_C.text,
-          'item': selctedItem!
-        };
-
-        await addSpends(
-          data['itemi']!,
-          data['explain']!,
-          double.parse(data['amount']!),
-          data['item']!,
-          DateTime.parse(data['date']!),
-        ).then((_) => {Navigator.pop(context)});
+        await updateSpends(
+            uid,
+            expalin_C.text,
+            date,
+            double.parse(amount_c.text),
+            selctedItemi.toString(),
+            selctedItem.toString());
       },
       child: Container(
         alignment: Alignment.center,
@@ -114,7 +115,7 @@ class _Add_ScreenState extends State<Add_Screen> {
         width: 120,
         height: 50,
         child: Text(
-          'Guardar',
+          'Actualizar',
           style: TextStyle(
             fontFamily: 'f',
             fontWeight: FontWeight.w600,
@@ -170,7 +171,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           ),
         ),
         child: DropdownButton<String>(
-          value: selctedItemi,
+          value: selctedItemi, // Utilizar el valor inicial
           onChanged: ((value) {
             setState(() {
               selctedItemi = value!;
@@ -352,14 +353,14 @@ class _Add_ScreenState extends State<Add_Screen> {
                       child: Icon(Icons.arrow_back, color: Colors.white),
                     ),
                     Text(
-                      'Añadir',
+                      'Editando',
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
                     Icon(
-                      Icons.add_card,
+                      Icons.edit,
                       color: Colors.white,
                     )
                   ],
