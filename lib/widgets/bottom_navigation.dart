@@ -18,9 +18,11 @@ class _BottomState extends State<Bottom> {
     return Scaffold(
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
+        onPressed: () async {
+          await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => Add_Screen()));
+
+          setState(() {});
         },
         child: Icon(Icons.add),
         backgroundColor: Color(0xff368983),

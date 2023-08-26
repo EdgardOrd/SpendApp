@@ -2,20 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto/services/firebase_service.dart';
 
-class Add_data {
-  late String name;
-  late String amount;
-  late DateTime datetime;
-  late String income;
-
-  Add_data({
-    required this.name,
-    required this.amount,
-    required this.datetime,
-    required this.income,
-  });
-}
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -24,15 +10,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // final List<Add_data> history = [
-  //   Add_data(
-  //     name: 'Salary',
-  //     amount: '10000',
-  //     income: 'Income',
-  //     datetime: DateTime.now(),
-  //   ),
-  // ];
-
   final List<String> day = [
     'Monday',
     "Tuesday",
@@ -101,7 +78,8 @@ class _HomeState extends State<Home> {
                         return ListTile(
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
-                            // child: Image.asset('images/food.png', height: 40),
+                            child: Image.asset('images/${item?['tipo']}.png',
+                                height: 40),
                           ),
                           title: Text(
                             item?['descrip'] ?? '',
@@ -116,14 +94,31 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          trailing: Text(
-                            item?['monto'].toString() ?? '',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 19,
-                              color: item?['tipo'] == 'Income'
-                                  ? Colors.green
-                                  : Colors.red,
+                          trailing: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: item?['nombre'] == 'Income' ? '+' : '-',
+                                  style: TextStyle(
+                                    color: item?['nombre'] == 'Income'
+                                        ? Colors.green
+                                        : Colors.red,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(text: ' '),
+                                TextSpan(
+                                  text: item?['monto'].toString() ?? '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 19,
+                                    color: item?['nombre'] == 'Income'
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -139,48 +134,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
-  // Widget getList(Add_data historyItem) {
-  //   return Dismissible(
-  //     key: UniqueKey(),
-  //     onDismissed: (direction) {
-  //         setState(() {
-  //         history.remove(historyItem);
-  //       });
-  //     },
-  //     child: get(historyItem),
-  //   );
-  // }
-
-  // ListTile get(Add_data historyItem) {
-  //   return ListTile(
-  //     leading: ClipRRect(
-  //       borderRadius: BorderRadius.circular(5),
-  //       // child: Image.asset('images/food.png', height: 40),
-  //     ),
-  //     title: Text(
-  //       historyItem.name,
-  //       style: TextStyle(
-  //         fontSize: 17,
-  //         fontWeight: FontWeight.w600,
-  //       ),
-  //     ),
-  //     subtitle: Text(
-  //       '${day[historyItem.datetime.weekday - 1]}  ${historyItem.datetime.year}-${historyItem.datetime.day}-${historyItem.datetime.month}',
-  //       style: TextStyle(
-  //         fontWeight: FontWeight.w600,
-  //       ),
-  //     ),
-  //     trailing: Text(
-  //       historyItem.amount,
-  //       style: TextStyle(
-  //         fontWeight: FontWeight.w600,
-  //         fontSize: 19,
-  //         color: historyItem.income == 'Income' ? Colors.green : Colors.red,
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _head() {
     return Stack(

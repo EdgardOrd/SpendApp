@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
+final gastosCollectionReference =
+    FirebaseFirestore.instance.collection('spends');
 
 Future<List> getSpends() async {
   List spends = [];
   CollectionReference collectionReferenceSpends = db.collection('spends');
   QuerySnapshot querySpends = await collectionReferenceSpends.get();
 
-  querySpends.docs.forEach((documento) {
+  for (var documento in querySpends.docs) {
     spends.add(documento.data());
-  });
+  }
   return spends;
 }
 

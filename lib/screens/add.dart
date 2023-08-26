@@ -101,9 +101,7 @@ class _Add_ScreenState extends State<Add_Screen> {
           double.parse(data['amount']!),
           data['item']!,
           DateTime.parse(data['date']!),
-        );
-
-        Navigator.of(context).pop();
+        ).then((_) => {Navigator.pop(context)});
       },
       child: Container(
         alignment: Alignment.center,
