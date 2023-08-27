@@ -7,9 +7,9 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
-  static double totalIncome = 0;
-  static double totalExpenses = 0;
-  static double total = 0;
+  double totalIncome = 0;
+  double totalExpenses = 0;
+  double total = 0;
   @override
   void initState() {
     super.initState();
@@ -153,7 +153,7 @@ class _InfoState extends State<Info> {
                   child: Row(
                     children: [
                       Text(
-                        '${total}',
+                        'Lps.${total}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -182,7 +182,7 @@ class _InfoState extends State<Info> {
                           ),
                           SizedBox(width: 7),
                           Text(
-                            'Income',
+                            'Ingresos',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -204,7 +204,7 @@ class _InfoState extends State<Info> {
                           ),
                           SizedBox(width: 7),
                           Text(
-                            'Expenses',
+                            'Gastos',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -223,7 +223,7 @@ class _InfoState extends State<Info> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${totalIncome}',
+                        'Lps.${totalIncome}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
@@ -231,7 +231,7 @@ class _InfoState extends State<Info> {
                         ),
                       ),
                       Text(
-                        '${totalExpenses}',
+                        'Lps.${totalExpenses}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,

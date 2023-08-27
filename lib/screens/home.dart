@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
                                           onPressed: () {
                                             return Navigator.pop(context, true);
                                           },
-                                          child: Text("Si, estoy seguro"))
+                                          child: const Text("Si, estoy seguro"))
                                     ],
                                   );
                                 });
@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
-                                  item?['nombre'] == 'Ingres'
+                                  item?['nombre'] == 'Ingreso'
                                       ? Icons.add_circle
                                       : Icons.remove_circle,
                                   color: item?['nombre'] == 'Ingreso'

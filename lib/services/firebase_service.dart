@@ -58,18 +58,31 @@ Future<void> deleteSpends(String uid) async {
   await db.collection("spends").doc(uid).delete();
 }
 
-Future<List> getUserInfo() async {
-  List info = [];
+Future<List> getInfo() async {
+  List spends = [];
   CollectionReference collectionReferenceSpends = db.collection('datos');
   QuerySnapshot querySpends = await collectionReferenceSpends.get();
 
   for (var documento in querySpends.docs) {
     final Map<String, dynamic> data = documento.data() as Map<String, dynamic>;
     final registro = {
-      "bancos": data['bancos'],
       "mes_anterior": data['mes_anterior'],
     };
-    info.add(registro);
+    spends.add(registro);
   }
-  return info;
+  return spends;
+}
+
+Future<String> getUser() async {
+  String userName = '';
+  CollectionReference collectionReferenceUsers =
+      FirebaseFirestore.instance.collection('users');
+  QuerySnapshot queryUsers = await collectionReferenceUsers.get();
+
+  for (var documento in queryUsers.docs) {
+    final Map<String, dynamic> data = documento.data() as Map<String, dynamic>;
+    userName = data['nombre'];
+    break; // Obtén solo el primer nombre de usuario
+  }
+  return userName;
 }
