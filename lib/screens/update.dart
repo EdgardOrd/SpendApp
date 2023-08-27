@@ -171,7 +171,7 @@ class _Update_ScreenState extends State<Update_Screen> {
           ),
         ),
         child: DropdownButton<String>(
-          value: selctedItemi, // Utilizar el valor inicial
+          value: selctedItemi,
           onChanged: ((value) {
             setState(() {
               selctedItemi = value!;

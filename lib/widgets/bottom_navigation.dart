@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/screens/home.dart';
 import 'package:proyecto/screens/statics.dart';
 import 'package:proyecto/screens/add.dart';
+import 'package:proyecto/screens/profile.dart';
 
 void main() {
   runApp(

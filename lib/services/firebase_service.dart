@@ -4,6 +4,10 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 final gastosCollectionReference =
     FirebaseFirestore.instance.collection('spends');
 
+FirebaseFirestore db2 = FirebaseFirestore.instance;
+final usuarioCollectionReference =
+    FirebaseFirestore.instance.collection('datos');
+
 Future<List> getSpends() async {
   List spends = [];
   CollectionReference collectionReferenceSpends = db.collection('spends');
@@ -52,4 +56,20 @@ Future<void> updateSpends(String uid, String newDescrip, DateTime newFecha,
 
 Future<void> deleteSpends(String uid) async {
   await db.collection("spends").doc(uid).delete();
+}
+
+Future<List> getUserInfo() async {
+  List info = [];
+  CollectionReference collectionReferenceSpends = db.collection('datos');
+  QuerySnapshot querySpends = await collectionReferenceSpends.get();
+
+  for (var documento in querySpends.docs) {
+    final Map<String, dynamic> data = documento.data() as Map<String, dynamic>;
+    final registro = {
+      "bancos": data['bancos'],
+      "mes_anterior": data['mes_anterior'],
+    };
+    info.add(registro);
+  }
+  return info;
 }
