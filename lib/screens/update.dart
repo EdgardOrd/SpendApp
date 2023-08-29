@@ -97,14 +97,8 @@ class _Update_ScreenState extends State<Update_Screen> {
 
   GestureDetector save() {
     return GestureDetector(
-      onTap: () async {
-        await updateSpends(
-            uid,
-            expalin_C.text,
-            date,
-            double.parse(amount_c.text),
-            selctedItemi.toString(),
-            selctedItem.toString());
+      onTap: () {
+        _showConfirmationDialog(context);
       },
       child: Container(
         alignment: Alignment.center,
@@ -125,6 +119,57 @@ class _Update_ScreenState extends State<Update_Screen> {
         ),
       ),
     );
+  }
+
+  Future<void> _showConfirmationDialog(BuildContext context) async {
+    bool shouldUpdate = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmar Cambios'),
+          content: Text('¿Desea guardar los cambios?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // No
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // Sí
+              },
+              child: Text('Sí'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldUpdate) {
+      await updateSpends(uid, expalin_C.text, date, double.parse(amount_c.text),
+          selctedItemi.toString(), selctedItem.toString());
+      Navigator.of(context).pop();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Registro Editado'),
+            content: Text('El registro ha sido editado exitosamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Cerrar el cuadro de alerta
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+      // Cerrar la página actual y volver atrás
+    }
   }
 
   Widget date_time() {

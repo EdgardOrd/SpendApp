@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -10,22 +11,34 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email = 'admin';
-  String _password = 'admin';
+  String _email = '';
+  String _password = '';
 
-  void login() {
+  void login() async {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save(); // Guardar los valores del formulario
+      _formKey.currentState!.save();
 
-      // Verificar los datos ingresados
-      if (_email == "admin" && _password == "admin") {
-        // Datos correctos, mostrar pantalla de bienvenida
-        Navigator.pushNamed(context, '/page');
-      } else {
-        // Datos incorrectos, mostrar mensaje de error
+      try {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .where('usuario', isEqualTo: _email)
+            .where('password', isEqualTo: _password)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          Navigator.pushNamed(context, '/page');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Usuario o contraseña incorrectos.'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Usuario o contraseña incorrectos.'),
+          SnackBar(
+            content: Text('Error al intentar iniciar sesión.'),
             duration: Duration(seconds: 3),
           ),
         );
@@ -43,18 +56,6 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
               labelText: 'Correo/Usuario',
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Color.fromARGB(255, 0, 137, 62),
-                ),
-              ),
-              labelStyle: TextStyle(
-                color: Color.fromARGB(
-                    255, 0, 77, 6), // Color del texto de la etiqueta
-              ),
-              focusColor:
-                  Color.fromARGB(255, 0, 137, 62), // Color cuando tiene enfoque
-              // Otros atributos de estilo y diseño
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -71,18 +72,6 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'Contraseña',
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Color.fromARGB(255, 0, 137, 62),
-                ),
-              ),
-              labelStyle: TextStyle(
-                color: Color.fromARGB(
-                    255, 0, 77, 6), // Color del texto de la etiqueta
-              ),
-              focusColor:
-                  Color.fromARGB(255, 0, 137, 62), // Color cuando tiene enfoque
-              // Otros atributos de estilo y diseño
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -99,11 +88,6 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: login,
             child: Text(
               'Iniciar Sesión',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF4CAF50), // Background color
